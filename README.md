@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Erlass IT Helpdesk
 
 Panduan pengembangan dan pengoperasian aplikasi **Erlass IT Helpdesk** berbasis Laravel, React/Inertia, dan MySQL.
@@ -386,3 +387,7 @@ Pastikan:
 - Database memiliki backup berkala.
 - Scheduler dijalankan 24/7.
 - Akun awal dan password produksi sudah diganti.
+=======
+# erlass-it-helpdesk
+Erlass IT Helpdesk — internal IT support and ticket management system
+>>>>>>> origin/main
