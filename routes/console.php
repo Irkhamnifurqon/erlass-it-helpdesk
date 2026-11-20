@@ -9,3 +9,6 @@ Schedule::call(function () {
         ->where('expires_at', '<', now())
         ->delete();
 })->daily()->description('Delete expired team invitations');
+
+Schedule::command('tickets:notify-overdue')->hourly()->description('Notify overdue helpdesk tickets');
+Schedule::command('tickets:auto-close-resolved')->daily()->description('Auto-close resolved tickets after three days');

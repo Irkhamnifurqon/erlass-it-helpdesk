@@ -2,22 +2,18 @@
 
 namespace App\Actions\Fortify;
 
-use App\Actions\Teams\CreateTeam;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules, ProfileValidationRules;
-
-    public function __construct(private CreateTeam $createTeam)
-    {
-        //
-    }
 
     /**
      * Validate and create a newly registered user.
@@ -28,6 +24,12 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             ...$this->profileRules(),
+            'department_id' => ['nullable', 'exists:departments,id', Rule::requiredIf(fn () => array_key_exists('position_id', $input) && filled($input['position_id']))],
+            'position_id' => [
+                'nullable',
+                Rule::requiredIf(fn () => array_key_exists('department_id', $input) && filled($input['department_id'])),
+                Rule::exists('positions', 'id')->where(fn ($query) => $query->where('department_id', $input['department_id'] ?? null)),
+            ],
             'password' => $this->passwordRules(),
         ])->validate();
 
@@ -36,9 +38,13 @@ class CreateNewUser implements CreatesNewUsers
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => $input['password'],
+                'department_id' => $input['department_id'] ?? null,
+                'position_id' => $input['position_id'] ?? null,
+                'email_verified_at' => now(),
             ]);
 
-            $this->createTeam->handle($user, $user->name."'s Team", isPersonal: true);
+            $role = Role::firstOrCreate(['name' => 'Karyawan']);
+            $user->roles()->sync([$role->id]);
 
             return $user;
         });

@@ -15,6 +15,14 @@ declare module '@inertiajs/core' {
             sidebarOpen: boolean;
             currentTeam: Team | null;
             teams: Team[];
+            notifications: {
+                id: string;
+                event: string;
+                message: string;
+                ticket_id: number | null;
+                read_at: string | null;
+                created_at: string;
+            }[];
             helpdesk: {
                 roles: string[];
                 department?: string;

@@ -4,7 +4,6 @@ import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
-import { TeamSwitcher } from '@/components/team-switcher';
 import {
     Sidebar,
     SidebarContent,
@@ -35,8 +34,13 @@ export function AppSidebar() {
         ...(roles.includes('Administrator')
             ? [
                   {
-                      title: 'Organisasi',
+                      title: 'Pengguna',
                       href: '/admin/organization',
+                      icon: LayoutGrid,
+                  },
+                  {
+                      title: 'Laporan',
+                      href: '/admin/reports',
                       icon: LayoutGrid,
                   },
               ]
@@ -61,16 +65,15 @@ export function AppSidebar() {
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
+                        <SidebarMenuButton
+                            size="lg"
+                            className="h-16 justify-center px-3 py-2 group-data-[collapsible=icon]:h-12"
+                            asChild
+                        >
                             <Link href={dashboardUrl} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <TeamSwitcher />
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>

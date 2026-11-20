@@ -19,14 +19,13 @@ class TicketPolicy
 
     public function assign(User $user, Ticket $ticket): bool
     {
-        return $user->hasAnyRole('Administrator', 'Supervisor IT');
+        return $user->hasRole('Administrator');
     }
 
     public function updateStatus(User $user, Ticket $ticket): bool
     {
-        return $user->hasAnyRole('Administrator', 'Supervisor IT')
-            || ($user->hasRole('IT Support') && $ticket->activeAssignment()->where('assigned_to', $user->id)->exists())
-            || ($user->id === $ticket->requester_id && in_array($ticket->status, ['resolved', 'closed'], true));
+        return $user->hasRole('Administrator')
+            || ($user->id === $ticket->requester_id && $ticket->status === 'resolved');
     }
 
     public function comment(User $user, Ticket $ticket): bool

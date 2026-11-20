@@ -23,4 +23,5 @@ erDiagram
     TICKETS ||--o| TICKET_RATINGS : receives
     USERS ||--o{ TICKET_RATINGS : submits
 ```
+
 Notifications menggunakan relasi polymorphic Laravel dan tidak ditampilkan pada ERD inti.

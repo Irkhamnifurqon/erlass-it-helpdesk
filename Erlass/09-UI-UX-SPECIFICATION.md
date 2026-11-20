@@ -1,13 +1,16 @@
 # UI/UX Specification
 
 ## Visual direction
+
 Modern enterprise dashboard; navy blue sebagai warna utama, white/light gray untuk surface, aksen blue, Bootstrap 5, Bootstrap Icons, system font/Inter.
 
 ## Layout
+
 Desktop: sidebar kiri, topbar, breadcrumb, konten.
 Mobile: sidebar offcanvas/collapsible, tabel scroll atau card list, form satu kolom.
 
 ## Halaman
+
 1. Login.
 2. Dashboard per role.
 3. Daftar tiket: search, filter, sort, pagination.
@@ -22,6 +25,7 @@ Mobile: sidebar offcanvas/collapsible, tabel scroll atau card list, form satu ko
 12. Notification center.
 
 ## UX rules
+
 - Nomor tiket tampil jelas setelah create.
 - Konfirmasi sebelum tindakan berdampak.
 - Tombol disesuaikan role, tetapi backend tetap memvalidasi.

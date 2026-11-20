@@ -1,20 +1,14 @@
-import { usePage } from '@inertiajs/react';
-
-import AppLogoIcon from '@/components/app-logo-icon';
-
 export default function AppLogo() {
-    const { name } = usePage().props;
-
     return (
-        <>
-            <div className="flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-                <AppLogoIcon className="size-5 fill-current text-white dark:text-black" />
-            </div>
-            <div className="ml-1 grid flex-1 text-left text-sm">
-                <span className="mb-0.5 truncate leading-tight font-semibold">
-                    {name}
-                </span>
-            </div>
-        </>
+        <div className="flex min-w-0 flex-col items-center justify-center py-1">
+            <img
+                src="/images/erlass-logo.png"
+                alt="Erlass Prokreatif Indonesia"
+                className="h-10 w-auto max-w-32 object-contain group-data-[collapsible=icon]/sidebar-wrapper:h-8"
+            />
+            <span className="mt-1 truncate text-[13px] leading-tight font-semibold group-data-[collapsible=icon]/sidebar-wrapper:hidden">
+                IT Helpdesk
+            </span>
+        </div>
     );
 }

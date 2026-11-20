@@ -47,9 +47,17 @@ class HandleInertiaRequests extends Middleware
                 'roles' => fn () => $user?->roles()->pluck('name')->values() ?? collect(),
                 'department' => fn () => $user?->department?->name,
             ],
+            'notifications' => fn () => $user
+                ? $user->notifications()->latest()->limit(10)->get()->map(fn ($notification) => [
+                    'id' => $notification->id,
+                    'event' => $notification->data['event'] ?? 'notification',
+                    'message' => $notification->data['message'] ?? '',
+                    'ticket_id' => $notification->data['ticket_id'] ?? null,
+                    'read_at' => $notification->read_at,
+                    'created_at' => $notification->created_at,
+                ])
+                : [],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-            'currentTeam' => fn () => $user?->currentTeam ? $user->toUserTeam($user->currentTeam) : null,
-            'teams' => fn () => $user?->toUserTeams(includeCurrent: true) ?? [],
         ];
     }
 }

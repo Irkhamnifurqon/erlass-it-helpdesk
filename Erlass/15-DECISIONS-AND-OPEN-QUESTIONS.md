@@ -1,25 +1,28 @@
 # Decisions and Open Questions
 
 ## Baseline decisions
-| Topik | Keputusan |
-|---|---|
-| Nama | Erlass IT Helpdesk |
-| Organisasi | Erlass Proaktif Indonesia |
-| Backend | Laravel |
-| Frontend | Blade + Bootstrap 5 |
-| Database | MySQL |
-| Roles | Administrator, Supervisor IT, IT Support, Karyawan |
-| Assignment | Supervisor memilih IT Support |
-| Approval | Tidak ada approval |
-| SLA basis | Kategori, bukan prioritas |
-| Notifications | In-app dan email |
-| Hosting awal | Server lokal perusahaan |
-| UI | Responsive desktop/mobile |
-| Support team | Banyak IT Support |
-| Employee visibility | Hanya tiket sendiri |
+
+| Topik               | Keputusan                                          |
+| ------------------- | -------------------------------------------------- |
+| Nama                | Erlass IT Helpdesk                                 |
+| Organisasi          | Erlass Proaktif Indonesia                          |
+| Backend             | Laravel                                            |
+| Frontend            | Blade + Bootstrap 5                                |
+| Database            | MySQL                                              |
+| Roles               | Administrator, Supervisor IT, IT Support, Karyawan |
+| Assignment          | Supervisor memilih IT Support                      |
+| Approval            | Tidak ada approval                                 |
+| SLA basis           | Kategori, bukan prioritas                          |
+| Notifications       | In-app dan email                                   |
+| Hosting awal        | Server lokal perusahaan                            |
+| UI                  | Responsive desktop/mobile                          |
+| Support team        | Banyak IT Support                                  |
+| Employee visibility | Hanya tiket sendiri                                |
 
 ## Wajib dikonfirmasi perusahaan
+
 ### SLA
+
 1. Hari dan jam kerja resmi?
 2. Apakah akhir pekan dihitung?
 3. Hari libur nasional/perusahaan?
@@ -29,6 +32,7 @@
 7. Definisi first response?
 
 ### Workflow
+
 8. Apakah karyawan wajib menutup tiket setelah Resolved?
 9. Berapa lama tiket Closed dapat dibuka kembali?
 10. Apakah Supervisor boleh override status?
@@ -36,6 +40,7 @@
 12. Apakah assignment dapat lintas departemen?
 
 ### User dan infrastruktur
+
 13. Akun dibuat Admin atau self-registration?
 14. Apakah email perusahaan wajib?
 15. Perlu SSO/Active Directory/Google Workspace?
@@ -46,10 +51,12 @@
 20. Perlu antivirus scanning attachment?
 
 ### Reporting
+
 21. Periode laporan standar?
 22. Definisi produktivitas IT Support?
 23. Target SLA compliance?
 24. Apakah laporan perlu persetujuan manajemen?
 
 ## Change control
+
 Setiap perubahan role, workflow, SLA, atau schema harus dicatat beserta alasan, dampak, update dokumen, test, dan persetujuan pemilik produk.

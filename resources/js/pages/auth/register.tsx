@@ -1,7 +1,6 @@
 import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
-import TeamInvitationAlert from '@/components/team-invitation-alert';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,33 +8,87 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
-import type { TeamInvitationContext } from '@/types';
+import { useMemo, useState } from 'react';
+import { toast } from 'sonner';
 
 type Props = {
     passwordRules: string;
-    teamInvitation?: TeamInvitationContext | null;
+    departments: { id: number; name: string }[];
+    positions: { id: number; department_id: number; name: string }[];
 };
 
-export default function Register({ passwordRules, teamInvitation }: Props) {
+export default function Register({
+    passwordRules,
+    departments,
+    positions,
+}: Props) {
+    const [departmentId, setDepartmentId] = useState('');
+    const departmentPositions = useMemo(
+        () =>
+            positions.filter(
+                (position) => String(position.department_id) === departmentId,
+            ),
+        [departmentId, positions],
+    );
     return (
         <>
             <Head title="Register" />
             <Form
                 {...store.form()}
+                onSuccess={() => toast.success('Akun berhasil dibuat')}
                 resetOnSuccess={['password', 'password_confirmation']}
                 disableWhileProcessing
                 className="flex flex-col gap-6"
             >
                 {({ processing, errors }) => (
                     <>
-                        {teamInvitation && (
-                            <TeamInvitationAlert
-                                invitation={teamInvitation}
-                                action="Register"
-                            />
-                        )}
-
                         <div className="grid gap-6">
+                            <div className="grid gap-2">
+                                <Label htmlFor="department_id">Divisi</Label>
+                                <select
+                                    id="department_id"
+                                    required
+                                    name="department_id"
+                                    value={departmentId}
+                                    onChange={(event) =>
+                                        setDepartmentId(event.target.value)
+                                    }
+                                    className="rounded-md border border-input bg-background px-3 py-2"
+                                >
+                                    <option value="">Pilih divisi</option>
+                                    {departments.map((department) => (
+                                        <option
+                                            key={department.id}
+                                            value={department.id}
+                                        >
+                                            {department.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <InputError message={errors.department_id} />
+                            </div>
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="position_id">Jabatan</Label>
+                                <select
+                                    id="position_id"
+                                    required
+                                    name="position_id"
+                                    className="rounded-md border border-input bg-background px-3 py-2"
+                                >
+                                    <option value="">Pilih jabatan</option>
+                                    {departmentPositions.map((position) => (
+                                        <option
+                                            key={position.id}
+                                            value={position.id}
+                                        >
+                                            {position.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <InputError message={errors.position_id} />
+                            </div>
+
                             <div className="grid gap-2">
                                 <Label htmlFor="name">Name</Label>
                                 <Input
@@ -114,17 +167,8 @@ export default function Register({ passwordRules, teamInvitation }: Props) {
                         <div className="text-center text-sm text-muted-foreground">
                             Already have an account?{' '}
                             <TextLink
-                                href={
-                                    teamInvitation
-                                        ? login.url({
-                                              query: {
-                                                  invitation:
-                                                      teamInvitation.code,
-                                              },
-                                          })
-                                        : login()
-                                }
-                                data-test="team-invitation-login-link"
+                                href={login()}
+                                data-test="login-link"
                                 tabIndex={6}
                             >
                                 Log in
